@@ -44,5 +44,9 @@ def preprocess_text(text, max_length, tokenizer=None):
 
     return padded_sequences, tokenizer
 
-
-    
+def clean_text(text):
+    text = BeautifulSoup(text, "html.parser").get_text()
+    text = re.sub('[^a-zA-Z\s]', '', text).lower()
+    stops = set(stopwords.words("english"))
+    text = " ".join([word for word in text.split() if word not in stops])
+    return text
