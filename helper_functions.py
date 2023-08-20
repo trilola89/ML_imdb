@@ -3,20 +3,19 @@ import nltk
 nltk.download('stopwords')
 from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
-from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
 import re
 
 
 
-def preprocess_text(text, max_length, tokenizer=None):
+def preprocess_text(text, max_length, tokenizer):
     """
     Preprocesses the text for an LSTM model.
 
     Parameters:
         text (str): The input text to be preprocessed.
         max_length (int): Maximum length for the padded sequences.
-        tokenizer (Tokenizer, optional): If provided, uses this tokenizer; otherwise, fits a new one.
+        tokenizer (Tokenizer): Uses the provided tokenizer.
 
     Returns:
         numpy.array: The preprocessed text sequences.
@@ -32,10 +31,6 @@ def preprocess_text(text, max_length, tokenizer=None):
     stops = set(stopwords.words("english"))
     text = " ".join([word for word in text.split() if word not in stops])
 
-    # Tokenizing and converting to sequences
-    if tokenizer is None:
-        tokenizer = Tokenizer()
-        tokenizer.fit_on_texts([text])
 
     sequences = tokenizer.texts_to_sequences([text])
 
