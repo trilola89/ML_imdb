@@ -1,3 +1,5 @@
 *.csv
 processed.h5
 __pycache__
+lr_model.pkl
+my_model.h5
